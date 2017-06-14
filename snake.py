@@ -48,7 +48,61 @@ def gameOver():
     displayRect = display.get_rect()
     displayRect.midtop = (350, 15)
     playSurface.blit(display,displayRect)
-    pygame.display.flip()
+    pygame.display.flip()   # flip = update
+    time.sleep(4)
+    pygame.quit()
+    sys.exit()
 
-gameOver()
-time.sleep(10)
+#Program flow
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_RIGHT or event.key == ord('d'):
+                changeto = 'RIGHT'
+            if event.key == pygame.K_LEFT or event.key == ord('a'):
+                changeto = 'LEFT'
+            if event.key == pygame.K_UP or event.key == ord('w'):
+                changeto = 'UP'
+            if event.key == pygame.K_DOWN or event.key == ord('s'):
+                changeto = 'DOWN'
+            if event.key == pygame.K_ESCAPE:
+                pygame.event.post(pygame.eventevent(QUIT))
+
+    #No direction backtracking
+    if changeto == 'RIGHT' and not direction == 'LEFT' :
+        direction = 'RIGHT'
+    if changeto == 'LEFT' and not direction == 'RIGHT' :
+        direction = 'LEFT'
+    if changeto == 'UP' and not direction == 'DOWN' :
+        direction = 'UP'
+    if changeto == 'DOWN' and not direction == 'UP' :
+        direction = 'DOWN'
+
+    #Snake movement
+    if direction == 'RIGHT':
+        snakePos[0] += 10
+    if direction == 'LEDT':
+        snakePos[0] -= 10
+    if direction == 'UP':
+        snakePos[1] -= 10
+    if direction == 'DOWN':
+        snakePos[1] += 10
+
+    #Snake body
+    snakeBody.insert(0, list(snakePos))
+    #Match snake head to foodPos
+    if snakePos[0] == foodPos[0] and snakePos[1] == foodPos[1]:
+        isFood = False  #make spawn food into a function ?
+    else:
+        snakeBody.pop()
+    #Spawn food if none
+    if isFood == False:
+        foodPos
+    isFood = True
+
+    #white bg
+    playSurface.fill(white)
+    pygame.display.flip()
