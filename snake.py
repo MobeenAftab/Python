@@ -1,3 +1,5 @@
+#TDOD   - Menu - Difficulty selector - 2 Player ? - better assets - pyinstaller, executable
+
 #Game Imports
 import pygame
 import sys
